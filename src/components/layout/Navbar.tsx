@@ -164,15 +164,15 @@ export function Navbar({ variant = "light" }: NavbarProps) {
               LIN<span className="text-[10px]">↗</span>
             </a>
           </div>
-          <Link
-            to="/contact"
+          <a
+            href="mailto:aravindhaaro2127@gmail.com?subject=Inquiry%20from%20your%20website"
             className={cn(
               "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
               isDark ? "text-white" : "text-black"
             )}
           >
-            Contacts
-          </Link>
+            Contact Us
+          </a>
         </div>
       </div>
     </header>
