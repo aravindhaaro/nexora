@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { ContactDialog } from "@/components/ContactDialog";
 
 interface NavbarProps {
   variant?: "light" | "dark";
@@ -164,15 +165,19 @@ export function Navbar({ variant = "light" }: NavbarProps) {
               LIN<span className="text-[10px]">↗</span>
             </a>
           </div>
-          <a
-            href="mailto:aravindhaaro2127@gmail.com?subject=Inquiry%20from%20your%20website"
-            className={cn(
-              "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
-              isDark ? "text-white" : "text-black"
-            )}
-          >
-            Contact Us
-          </a>
+          <ContactDialog
+            trigger={
+              <button
+                type="button"
+                className={cn(
+                  "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
+                  isDark ? "text-white" : "text-black"
+                )}
+              >
+                Contact Us
+              </button>
+            }
+          />
         </div>
       </div>
     </header>
