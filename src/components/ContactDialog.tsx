@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2, Send, CheckCircle2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { siteContent } from "@/data/siteContent";
 
-const RECIPIENT_EMAIL = "aravindhaaro2127@gmail.com";
+const RECIPIENT_EMAIL = siteContent.brand.email;
 
 const schema = z.object({
   name: z

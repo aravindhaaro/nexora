@@ -1,8 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
+import { siteContent } from "@/data/siteContent";
+import { SocialIcon } from "@/components/SocialIcon";
 
 const Contact = () => {
+  const { brand } = siteContent;
+
   return (
-    <Layout hideFooter variant="dark">
+    <Layout variant="dark">
       <section className="min-h-screen flex items-center bg-black text-white pt-24">
         <div className="container py-20 md:py-32">
           <div className="max-w-4xl">
@@ -23,10 +27,10 @@ const Contact = () => {
             <div className="mb-20">
               <p className="text-xs uppercase tracking-[0.15em] font-medium text-gray-500 mb-4">Get in touch</p>
               <a
-                href="mailto:hello@example.com"
+                href={`mailto:${brand.email}`}
                 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white hover:text-gray-300 transition-colors inline-flex items-center gap-4 group"
               >
-                hello@example.com
+                {brand.email}
                 <span className="inline-block transition-transform group-hover:translate-x-2 text-gray-500">→</span>
               </a>
             </div>
@@ -42,33 +46,36 @@ const Contact = () => {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group"
+                  aria-label="LinkedIn"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-gray-300 transition-colors"
                 >
-                  LinkedIn
-                  <span className="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+                  <SocialIcon label="LinkedIn" className="h-5 w-5" />
+                  <span className="sr-only">LinkedIn</span>
                 </a>
               </div>
 
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] font-medium text-gray-500 mb-4">For Updates</p>
-                <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3">
                   <a
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group"
+                    aria-label="Twitter"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-gray-300 transition-colors"
                   >
-                    Twitter
-                    <span className="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+                    <SocialIcon label="Twitter" className="h-5 w-5" />
+                    <span className="sr-only">Twitter</span>
                   </a>
                   <a
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group"
+                    aria-label="Instagram"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-gray-300 transition-colors"
                   >
-                    Instagram
-                    <span className="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+                    <SocialIcon label="Instagram" className="h-5 w-5" />
+                    <span className="sr-only">Instagram</span>
                   </a>
                 </div>
               </div>
@@ -79,10 +86,11 @@ const Contact = () => {
                   href="https://dribbble.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group"
+                  aria-label="Dribbble"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-gray-300 transition-colors"
                 >
-                  Dribbble
-                  <span className="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+                  <SocialIcon label="Dribbble" className="h-5 w-5" />
+                  <span className="sr-only">Dribbble</span>
                 </a>
               </div>
             </div>
@@ -91,7 +99,7 @@ const Contact = () => {
           {/* Bottom text */}
           <div className="mt-32 md:mt-48">
             <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} Your Name. All rights reserved.
+              © {new Date().getFullYear()} {brand.ownerName}. All rights reserved.
             </p>
           </div>
         </div>

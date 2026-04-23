@@ -1,14 +1,5 @@
 import { useEffect, useRef, useState, ReactNode } from "react";
-import bagStreet from "@/assets/nx-bag-street.jpg";
-import boxGlove from "@/assets/nx-box-glove.jpg";
-import suiteDark from "@/assets/nx-suite-dark.jpg";
-import suiteLight from "@/assets/nx-suite-light.jpg";
-import cupSmoke from "@/assets/nx-cup-smoke.jpg";
-import cupsTrio from "@/assets/nx-cups-trio.jpg";
-import shelfObjects from "@/assets/nx-shelf-objects.jpg";
-import paperRoll from "@/assets/nx-paper-roll.jpg";
-import cupHand from "@/assets/nx-cup-hand.jpg";
-import cafeScene from "@/assets/nx-cafe-scene.jpg";
+import { siteContent, type CinematicEffect } from "@/data/siteContent";
 
 /**
  * useScrollProgress
@@ -54,18 +45,7 @@ interface SceneProps {
   image: string;
   caption: string;
   cameraLabel: string;
-  effect:
-    | "zoom-in"
-    | "zoom-out"
-    | "pan-left"
-    | "pan-right"
-    | "dolly-forward"
-    | "orbit"
-    | "aerial"
-    | "wide-angle"
-    | "close-up"
-    | "handheld"
-    | "tracking";
+  effect: CinematicEffect;
   /** Large spaced display word, e.g. "D E S I G N S" */
   overlayWord?: string;
   /** Small kicker label above caption, e.g. "OUR VISION" */
@@ -233,182 +213,6 @@ function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body 
   );
 }
 
-/* ------------- Final water + lilies finale ------------- */
-
-function WaterFinale() {
-  const ref = useRef<HTMLElement>(null);
-  const progress = useScrollProgress(ref);
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    let raf = 0;
-    let start = performance.now();
-    const tick = (now: number) => {
-      setTime((now - start) / 1000);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // logo gentle bobbing on water
-  const bobY = Math.sin(time * 1.1) * 6;
-  const bobRot = Math.sin(time * 0.7) * 1.2;
-  const logoScale = lerp(0.7, 1, Math.min(1, progress * 1.6));
-  const logoOpacity = Math.min(1, progress * 1.8);
-
-  // lily sway helper
-  const sway = (seed: number, amp = 6) =>
-    Math.sin(time * 0.8 + seed) * amp;
-
-  return (
-    <section
-      ref={ref}
-      className="relative h-screen w-full overflow-hidden bg-[#05070a]"
-    >
-      {/* Deep water gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#0e1620_0%,#05080c_55%,#000_100%)]" />
-
-      {/* Animated water ripples (SVG) */}
-      <svg
-        className="absolute inset-0 h-full w-full opacity-40"
-        viewBox="0 0 1200 800"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <radialGradient id="ripple" cx="50%" cy="60%" r="50%">
-            <stop offset="0%" stopColor="rgba(180,210,230,0.25)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0)" />
-          </radialGradient>
-        </defs>
-        {[0, 1, 2, 3].map((i) => {
-          const r = 120 + i * 90 + (Math.sin(time * 0.6 + i) + 1) * 40;
-          return (
-            <ellipse
-              key={i}
-              cx={600 + Math.sin(time * 0.3 + i) * 30}
-              cy={500}
-              rx={r}
-              ry={r * 0.18}
-              fill="none"
-              stroke="rgba(170,200,225,0.18)"
-              strokeWidth={1}
-            />
-          );
-        })}
-        <ellipse cx="600" cy="500" rx="500" ry="100" fill="url(#ripple)" />
-      </svg>
-
-      {/* Reflected light shimmer */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-1/2 opacity-60"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(120,160,200,0.08), transparent)",
-        }}
-      />
-
-      {/* Lily pads — SVG shapes scattered around */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[
-          { x: "12%", y: "62%", size: 110, seed: 0.3, hue: 150 },
-          { x: "78%", y: "58%", size: 130, seed: 1.1, hue: 145 },
-          { x: "22%", y: "78%", size: 90, seed: 2.0, hue: 155 },
-          { x: "70%", y: "80%", size: 100, seed: 2.7, hue: 148 },
-          { x: "45%", y: "72%", size: 80, seed: 3.4, hue: 152 },
-          { x: "88%", y: "72%", size: 70, seed: 4.1, hue: 150 },
-          { x: "5%", y: "76%", size: 75, seed: 5.0, hue: 146 },
-        ].map((p, i) => (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              left: p.x,
-              top: p.y,
-              width: p.size,
-              height: p.size,
-              transform: `translate(-50%, -50%) translate(${sway(
-                p.seed,
-                4
-              )}px, ${sway(p.seed + 1, 2)}px) rotate(${sway(p.seed, 3)}deg)`,
-            }}
-          >
-            <svg viewBox="0 0 100 100" className="h-full w-full">
-              {/* lily pad */}
-              <path
-                d="M50 8 A 42 42 0 1 1 49.9 8 L50 50 Z"
-                fill={`hsl(${p.hue} 30% 12%)`}
-                stroke={`hsl(${p.hue} 25% 22%)`}
-                strokeWidth="0.6"
-                opacity="0.9"
-              />
-              {/* lily flower */}
-              <g transform="translate(50 50)">
-                {[0, 1, 2, 3, 4, 5].map((k) => (
-                  <ellipse
-                    key={k}
-                    rx="3"
-                    ry="9"
-                    fill="rgba(245,240,230,0.85)"
-                    transform={`rotate(${k * 60 + sway(p.seed + k, 2)}) translate(0 -6)`}
-                  />
-                ))}
-                <circle r="2.4" fill="hsl(45 60% 60%)" />
-              </g>
-            </svg>
-          </div>
-        ))}
-      </div>
-
-      {/* The floating NX logo */}
-      <div
-        className="absolute left-1/2 top-1/2 flex flex-col items-center"
-        style={{
-          transform: `translate(-50%, calc(-50% + ${bobY}px)) rotate(${bobRot}deg) scale(${logoScale})`,
-          opacity: logoOpacity,
-          filter: "drop-shadow(0 30px 40px rgba(0,0,0,0.7))",
-        }}
-      >
-        <NXLogo className="w-40 md:w-56 text-white" />
-        <div className="mt-4 text-[10px] uppercase tracking-[0.5em] text-white/60">
-          Nexora · Designs
-        </div>
-        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
-          Qatar · Est. 2025
-        </div>
-      </div>
-
-      {/* Logo reflection */}
-      <div
-        className="absolute left-1/2 top-1/2 flex flex-col items-center"
-        style={{
-          transform: `translate(-50%, calc(-50% + ${bobY * -1 + 90}px)) scaleY(-0.6) scale(${logoScale})`,
-          opacity: logoOpacity * 0.18,
-          filter: "blur(4px)",
-        }}
-      >
-        <NXLogo className="w-40 md:w-56 text-white" />
-      </div>
-
-      {/* Closing caption */}
-      <div className="absolute bottom-10 left-0 right-0 text-center px-6">
-        <div className="text-[10px] uppercase tracking-[0.5em] text-white/50 mb-3">
-          Stillness · Reflection · Identity
-        </div>
-        <a
-          href="mailto:aravindhaaro2127@gmail.com?subject=Inquiry%20for%20Nexora"
-          className="text-white/80 hover:text-white text-sm tracking-wide transition-colors"
-        >
-          aravindhaaro2127@gmail.com
-        </a>
-        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
-          Ph: +974 70480335
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ------------- NX logomark (placeholder you can swap) ------------- */
 
 function NXLogo({ className }: { className?: string }) {
@@ -463,89 +267,7 @@ interface CinematicShowcaseProps {
 }
 
 export function CinematicShowcase({ logoSrc }: CinematicShowcaseProps) {
-  const scenes: SceneProps[] = [
-    {
-      image: bagStreet,
-      overlayWord: "D E S I G N S",
-      kicker: "A B O U T   U S",
-      caption: "NEXORA — established 2025, Qatar.",
-      body: "We provide superior packaging products. Our in-house design team and high-quality print capabilities have earned us a reputation for custom-print packaging solutions.",
-      cameraLabel: "Tracking shot",
-      effect: "tracking",
-    },
-    {
-      image: boxGlove,
-      kicker: "Customised Paper Box",
-      caption: "Held in the hand. Crafted with weight.",
-      body: "Competitive pricing, committed lead-times, and excellent after-sales service — the three pillars of our success.",
-      cameraLabel: "Close-up",
-      effect: "close-up",
-    },
-    {
-      image: suiteDark,
-      overlayWord: "O U R   S E R V I C E S",
-      kicker: "What we make",
-      caption: "Packaging — designed and made.",
-      body: "Paper Cups · Paper Bags · Paper Boxes · Plastic Cups · Business Cards · Thank You Cards · Custom Printing.",
-      cameraLabel: "Wide angle",
-      effect: "wide-angle",
-    },
-    {
-      image: cupSmoke,
-      kicker: "Customised Paper Cups",
-      caption: "Vapor lifts. The mark remains.",
-      cameraLabel: "Zoom in",
-      effect: "zoom-in",
-    },
-    {
-      image: cupsTrio,
-      kicker: "Customised PET Cups",
-      caption: "Three vessels. One identity.",
-      cameraLabel: "Orbit",
-      effect: "orbit",
-    },
-    {
-      image: shelfObjects,
-      overlayWord: "D E S I G N S",
-      kicker: "In-house studio",
-      caption: "Objects of ritual, lined like architecture.",
-      cameraLabel: "Pan right",
-      effect: "pan-right",
-    },
-    {
-      image: paperRoll,
-      overlayWord: "O U R   V I S I O N",
-      kicker: "The horizon",
-      caption: "Qatar's leading provider of sustainable packaging.",
-      body: "We aim to set the standard for sustainable, design-led packaging across the region.",
-      cameraLabel: "Aerial shot",
-      effect: "aerial",
-    },
-    {
-      image: cupHand,
-      kicker: "Customised Paper Cups",
-      caption: "A quiet exchange between hand and form.",
-      cameraLabel: "Handheld",
-      effect: "handheld",
-    },
-    {
-      image: cafeScene,
-      kicker: "Customised Paper Bags",
-      caption: "Steam, light, presence.",
-      body: "We invite expected customers to get in touch — to offer the chance to design a packaging arrangement modified to your needs.",
-      cameraLabel: "Dolly forward",
-      effect: "dolly-forward",
-    },
-    {
-      image: suiteLight,
-      overlayWord: "O U R   M I S S I O N",
-      kicker: "Our mission",
-      caption: "Renewable. Sustainable. Crafted to standard.",
-      body: "We attract like-minded customers seeking environmentally friendly products — manufactured from renewable resources, following industry best-practice and the highest international production standards.",
-      cameraLabel: "Zoom out",
-      effect: "zoom-out",
-    },
-  ];
+  const scenes: SceneProps[] = siteContent.cinematic.scenes;
 
   return (
     <div className="relative bg-black">
@@ -553,7 +275,6 @@ export function CinematicShowcase({ logoSrc }: CinematicShowcaseProps) {
       {scenes.map((s, i) => (
         <Scene key={i} {...s} />
       ))}
-      <WaterFinale />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ContactDialog } from "@/components/ContactDialog";
+import { siteContent } from "@/data/siteContent";
+import { SocialIcon } from "@/components/SocialIcon";
 
 interface NavbarProps {
   variant?: "light" | "dark";
@@ -36,6 +38,7 @@ export function Navbar({ variant = "light" }: NavbarProps) {
 
   const isDark = variant === "dark";
   const isGridActive = location.pathname === "/";
+  const { brand, nav } = siteContent;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,10 +48,45 @@ export function Navbar({ variant = "light" }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const viewToggle = (
+    <div
+      className={cn(
+        "relative flex items-center rounded-full bg-gray-900 transition-all duration-300",
+        scrolled ? "shadow-lg" : "shadow-md"
+      )}
+    >
+      <div
+        className={cn(
+          "absolute top-0 h-full w-14 rounded-full bg-white transition-all duration-300 ease-out",
+          isGridActive ? "left-0" : "left-14"
+        )}
+      />
+      <Link
+        to="/"
+        className={cn(
+          "relative z-10 flex h-10 w-14 items-center justify-center transition-colors duration-300",
+          isGridActive ? "text-black" : "text-gray-400 hover:text-white"
+        )}
+        aria-label="Open grid view"
+      >
+        <GridIcon />
+      </Link>
+      <Link
+        to="/about"
+        className={cn(
+          "relative z-10 flex h-10 w-14 items-center justify-center transition-colors duration-300",
+          !isGridActive ? "text-black" : "text-gray-400 hover:text-white"
+        )}
+        aria-label="Open list view"
+      >
+        <ListIcon />
+      </Link>
+    </div>
+  );
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-6 lg:px-20 py-5 lg:py-8">
+    <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4 sm:px-6 md:py-5 lg:px-20 lg:py-8">
       <div className="flex items-center justify-between">
-        {/* Left: Name/Location */}
         <Link 
           to="/" 
           className={cn(
@@ -56,128 +94,52 @@ export function Navbar({ variant = "light" }: NavbarProps) {
             isDark ? "text-white" : "text-black"
           )}
         >
-          Marco Coppeto
+          {brand.ownerName}
           <span className={cn(
-            "block lg:inline lg:ml-2",
+            "hidden lg:inline lg:ml-2",
             isDark ? "text-gray-500" : "text-gray-400"
           )}>
-            Brooklyn, NY
+            {brand.location}
           </span>
         </Link>
 
-        {/* Center: Floating Toggle Menu with Sliding Indicator */}
-        <div
-          className={cn(
-            "fixed right-6 md:right-auto md:left-1/2 md:-translate-x-1/2 top-5 lg:top-8 lg:right-auto flex items-center rounded-full transition-all duration-300 bg-gray-900",
-            scrolled 
-              ? "shadow-lg" 
-              : "shadow-md"
-          )}
-        >
-          {/* Sliding white indicator */}
-          <div 
-            className={cn(
-              "absolute top-0 h-full w-14 bg-white rounded-full transition-all duration-300 ease-out",
-              isGridActive ? "left-0" : "left-14"
-            )}
-          />
-          
-          {/* Grid button */}
-          <Link
-            to="/"
-            className={cn(
-              "relative z-10 flex items-center justify-center w-14 h-10 transition-colors duration-300",
-              isGridActive 
-                ? "text-black" 
-                : "text-gray-400 hover:text-white"
-            )}
-          >
-            <GridIcon />
-          </Link>
-          
-          {/* List button */}
-          <Link
-            to="/about"
-            className={cn(
-              "relative z-10 flex items-center justify-center w-14 h-10 transition-colors duration-300",
-              !isGridActive
-                ? "text-black" 
-                : "text-gray-400 hover:text-white"
-            )}
-          >
-            <ListIcon />
-          </Link>
-        </div>
-
-        {/* Right: Social Links + Contacts (hidden on mobile) */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <div className="hidden lg:flex items-center gap-4">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "text-xs uppercase tracking-wide font-medium transition-colors inline-flex items-center gap-1",
-                isDark 
-                  ? "text-gray-400 hover:text-white" 
-                  : "text-gray-500 hover:text-black"
-              )}
-            >
-              TW<span className="text-[10px]">↗</span>
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "text-xs uppercase tracking-wide font-medium transition-colors inline-flex items-center gap-1",
-                isDark 
-                  ? "text-gray-400 hover:text-white" 
-                  : "text-gray-500 hover:text-black"
-              )}
-            >
-              IG<span className="text-[10px]">↗</span>
-            </a>
-            <a
-              href="https://dribbble.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "text-xs uppercase tracking-wide font-medium transition-colors inline-flex items-center gap-1",
-                isDark 
-                  ? "text-gray-400 hover:text-white" 
-                  : "text-gray-500 hover:text-black"
-              )}
-            >
-              DRIB<span className="text-[10px]">↗</span>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "text-xs uppercase tracking-wide font-medium transition-colors inline-flex items-center gap-1",
-                isDark 
-                  ? "text-gray-400 hover:text-white" 
-                  : "text-gray-500 hover:text-black"
-              )}
-            >
-              LIN<span className="text-[10px]">↗</span>
-            </a>
-          </div>
-          <ContactDialog
-            trigger={
-              <button
-                type="button"
+            {nav.socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
                 className={cn(
-                  "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
-                  isDark ? "text-white" : "text-black"
+                  "inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",
+                  isDark 
+                    ? "text-gray-400 hover:text-white" 
+                    : "text-gray-500 hover:text-black"
                 )}
               >
-                Contact Us
-              </button>
-            }
-          />
+                <SocialIcon label={link.label} className="h-4 w-4" />
+                <span className="sr-only">{link.label}</span>
+              </a>
+            ))}
+          </div>
+          <div className="flex flex-col items-end gap-2">
+            <ContactDialog
+              trigger={
+                <button
+                  type="button"
+                  className={cn(
+                    "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
+                    isDark ? "text-white" : "text-black"
+                  )}
+                >
+                  Contact Us
+                </button>
+              }
+            />
+            <div>{viewToggle}</div>
+          </div>
         </div>
       </div>
     </header>

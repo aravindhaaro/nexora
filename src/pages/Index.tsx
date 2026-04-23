@@ -3,7 +3,7 @@ import { CinematicShowcase } from "@/components/CinematicShowcase";
 
 const Index = () => {
   return (
-    <Layout variant="dark" hideFooter>
+    <Layout variant="dark">
       {/* To swap the top-center logo later, pass logoSrc={yourImport} */}
       <CinematicShowcase />
     </Layout>
