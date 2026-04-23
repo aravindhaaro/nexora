@@ -74,7 +74,7 @@ interface SceneProps {
   body?: string;
 }
 
-function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
+function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
@@ -188,6 +188,21 @@ function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/90 to-transparent" />
 
+      {/* Giant spaced display word — drifts in from the side */}
+      {overlayWord && (
+        <div
+          className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
+          style={{
+            opacity: Math.min(0.18, t * 0.25),
+            transform: `translateX(${lerp(-40, 40, t)}px)`,
+          }}
+        >
+          <span className="text-white font-light tracking-[0.35em] text-[14vw] md:text-[10vw] leading-none whitespace-nowrap select-none">
+            {overlayWord}
+          </span>
+        </div>
+      )}
+
       {/* Caption */}
       <div
         className="absolute bottom-16 left-6 right-6 md:left-20 md:right-20 flex items-end justify-between gap-8"
@@ -197,16 +212,21 @@ function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
           transition: "opacity 120ms linear",
         }}
       >
-        <div>
+        <div className="max-w-3xl">
           <div className="text-[10px] uppercase tracking-[0.4em] text-white/50 mb-3">
-            {cameraLabel}
+            {kicker ?? cameraLabel}
           </div>
-          <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tight max-w-3xl">
+          <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tight">
             {caption}
           </h2>
+          {body && (
+            <p className="mt-5 text-white/65 text-sm md:text-base max-w-xl leading-relaxed">
+              {body}
+            </p>
+          )}
         </div>
         <div className="hidden md:block text-[10px] uppercase tracking-[0.4em] text-white/40 self-end pb-2">
-          NX / Identity
+          NEXORA · {cameraLabel}
         </div>
       </div>
     </section>
