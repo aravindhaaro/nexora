@@ -66,6 +66,12 @@ interface SceneProps {
     | "close-up"
     | "handheld"
     | "tracking";
+  /** Large spaced display word, e.g. "D E S I G N S" */
+  overlayWord?: string;
+  /** Small kicker label above caption, e.g. "OUR VISION" */
+  kicker?: string;
+  /** Optional supporting paragraph under caption */
+  body?: string;
 }
 
 function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
