@@ -66,9 +66,15 @@ interface SceneProps {
     | "close-up"
     | "handheld"
     | "tracking";
+  /** Large spaced display word, e.g. "D E S I G N S" */
+  overlayWord?: string;
+  /** Small kicker label above caption, e.g. "OUR VISION" */
+  kicker?: string;
+  /** Optional supporting paragraph under caption */
+  body?: string;
 }
 
-function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
+function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body }: SceneProps) {
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
@@ -182,6 +188,21 @@ function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/80 to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/90 to-transparent" />
 
+      {/* Giant spaced display word — drifts in from the side */}
+      {overlayWord && (
+        <div
+          className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
+          style={{
+            opacity: Math.min(0.18, t * 0.25),
+            transform: `translateX(${lerp(-40, 40, t)}px)`,
+          }}
+        >
+          <span className="text-white font-light tracking-[0.35em] text-[14vw] md:text-[10vw] leading-none whitespace-nowrap select-none">
+            {overlayWord}
+          </span>
+        </div>
+      )}
+
       {/* Caption */}
       <div
         className="absolute bottom-16 left-6 right-6 md:left-20 md:right-20 flex items-end justify-between gap-8"
@@ -191,16 +212,21 @@ function Scene({ image, caption, cameraLabel, effect }: SceneProps) {
           transition: "opacity 120ms linear",
         }}
       >
-        <div>
+        <div className="max-w-3xl">
           <div className="text-[10px] uppercase tracking-[0.4em] text-white/50 mb-3">
-            {cameraLabel}
+            {kicker ?? cameraLabel}
           </div>
-          <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tight max-w-3xl">
+          <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-light leading-[1.05] tracking-tight">
             {caption}
           </h2>
+          {body && (
+            <p className="mt-5 text-white/65 text-sm md:text-base max-w-xl leading-relaxed">
+              {body}
+            </p>
+          )}
         </div>
         <div className="hidden md:block text-[10px] uppercase tracking-[0.4em] text-white/40 self-end pb-2">
-          NX / Identity
+          NEXORA · {cameraLabel}
         </div>
       </div>
     </section>
@@ -345,7 +371,10 @@ function WaterFinale() {
       >
         <NXLogo className="w-40 md:w-56 text-white" />
         <div className="mt-4 text-[10px] uppercase tracking-[0.5em] text-white/60">
-          designs
+          Nexora · Designs
+        </div>
+        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
+          Qatar · Est. 2025
         </div>
       </div>
 
@@ -362,9 +391,18 @@ function WaterFinale() {
       </div>
 
       {/* Closing caption */}
-      <div className="absolute bottom-10 left-0 right-0 text-center">
-        <div className="text-[10px] uppercase tracking-[0.5em] text-white/40">
+      <div className="absolute bottom-10 left-0 right-0 text-center px-6">
+        <div className="text-[10px] uppercase tracking-[0.5em] text-white/50 mb-3">
           Stillness · Reflection · Identity
+        </div>
+        <a
+          href="mailto:aravindhaaro2127@gmail.com?subject=Inquiry%20for%20Nexora"
+          className="text-white/80 hover:text-white text-sm tracking-wide transition-colors"
+        >
+          aravindhaaro2127@gmail.com
+        </a>
+        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
+          Ph: +974 70480335
         </div>
       </div>
     </section>
@@ -428,61 +466,82 @@ export function CinematicShowcase({ logoSrc }: CinematicShowcaseProps) {
   const scenes: SceneProps[] = [
     {
       image: bagStreet,
-      caption: "A silhouette walks. The brand follows.",
+      overlayWord: "D E S I G N S",
+      kicker: "A B O U T   U S",
+      caption: "NEXORA — established 2025, Qatar.",
+      body: "We provide superior packaging products. Our in-house design team and high-quality print capabilities have earned us a reputation for custom-print packaging solutions.",
       cameraLabel: "Tracking shot",
       effect: "tracking",
     },
     {
       image: boxGlove,
+      kicker: "Customised Paper Box",
       caption: "Held in the hand. Crafted with weight.",
+      body: "Competitive pricing, committed lead-times, and excellent after-sales service — the three pillars of our success.",
       cameraLabel: "Close-up",
       effect: "close-up",
     },
     {
       image: suiteDark,
-      caption: "An entire system, rendered in shadow.",
+      overlayWord: "O U R   S E R V I C E S",
+      kicker: "What we make",
+      caption: "Packaging — designed and made.",
+      body: "Paper Cups · Paper Bags · Paper Boxes · Plastic Cups · Business Cards · Thank You Cards · Custom Printing.",
       cameraLabel: "Wide angle",
       effect: "wide-angle",
     },
     {
       image: cupSmoke,
+      kicker: "Customised Paper Cups",
       caption: "Vapor lifts. The mark remains.",
       cameraLabel: "Zoom in",
       effect: "zoom-in",
     },
     {
       image: cupsTrio,
+      kicker: "Customised PET Cups",
       caption: "Three vessels. One identity.",
       cameraLabel: "Orbit",
       effect: "orbit",
     },
     {
       image: shelfObjects,
+      overlayWord: "D E S I G N S",
+      kicker: "In-house studio",
       caption: "Objects of ritual, lined like architecture.",
       cameraLabel: "Pan right",
       effect: "pan-right",
     },
     {
       image: paperRoll,
-      caption: "Pattern unspools into the dark.",
+      overlayWord: "O U R   V I S I O N",
+      kicker: "The horizon",
+      caption: "Qatar's leading provider of sustainable packaging.",
+      body: "We aim to set the standard for sustainable, design-led packaging across the region.",
       cameraLabel: "Aerial shot",
       effect: "aerial",
     },
     {
       image: cupHand,
+      kicker: "Customised Paper Cups",
       caption: "A quiet exchange between hand and form.",
       cameraLabel: "Handheld",
       effect: "handheld",
     },
     {
       image: cafeScene,
+      kicker: "Customised Paper Bags",
       caption: "Steam, light, presence.",
+      body: "We invite expected customers to get in touch — to offer the chance to design a packaging arrangement modified to your needs.",
       cameraLabel: "Dolly forward",
       effect: "dolly-forward",
     },
     {
       image: suiteLight,
-      caption: "And then — daylight. The system breathes.",
+      overlayWord: "O U R   M I S S I O N",
+      kicker: "Our mission",
+      caption: "Renewable. Sustainable. Crafted to standard.",
+      body: "We attract like-minded customers seeking environmentally friendly products — manufactured from renewable resources, following industry best-practice and the highest international production standards.",
       cameraLabel: "Zoom out",
       effect: "zoom-out",
     },
