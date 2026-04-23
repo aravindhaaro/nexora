@@ -371,7 +371,10 @@ function WaterFinale() {
       >
         <NXLogo className="w-40 md:w-56 text-white" />
         <div className="mt-4 text-[10px] uppercase tracking-[0.5em] text-white/60">
-          designs
+          Nexora · Designs
+        </div>
+        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
+          Qatar · Est. 2025
         </div>
       </div>
 
@@ -388,9 +391,18 @@ function WaterFinale() {
       </div>
 
       {/* Closing caption */}
-      <div className="absolute bottom-10 left-0 right-0 text-center">
-        <div className="text-[10px] uppercase tracking-[0.5em] text-white/40">
+      <div className="absolute bottom-10 left-0 right-0 text-center px-6">
+        <div className="text-[10px] uppercase tracking-[0.5em] text-white/50 mb-3">
           Stillness · Reflection · Identity
+        </div>
+        <a
+          href="mailto:aravindhaaro2127@gmail.com?subject=Inquiry%20for%20Nexora"
+          className="text-white/80 hover:text-white text-sm tracking-wide transition-colors"
+        >
+          aravindhaaro2127@gmail.com
+        </a>
+        <div className="mt-2 text-[10px] uppercase tracking-[0.4em] text-white/40">
+          Ph: +974 70480335
         </div>
       </div>
     </section>
