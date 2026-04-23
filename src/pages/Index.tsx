@@ -1,14 +1,11 @@
 import { Layout } from "@/components/layout/Layout";
-import { HeroSection } from "@/components/HeroSection";
-import { ProjectGrid } from "@/components/ProjectGrid";
+import { CinematicShowcase } from "@/components/CinematicShowcase";
 
 const Index = () => {
   return (
-    <Layout variant="dark">
-      <div className="bg-black min-h-screen">
-        <HeroSection />
-        <ProjectGrid />
-      </div>
+    <Layout variant="dark" hideFooter>
+      {/* To swap the top-center logo later, pass logoSrc={yourImport} */}
+      <CinematicShowcase />
     </Layout>
   );
 };
