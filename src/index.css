@@ -588,12 +588,13 @@
   display: inline-block;
   white-space: nowrap;
   padding-left: 100%;
-  animation: neon-marquee-full 28s linear infinite;
+  animation: neon-marquee-full 60s linear infinite;
   font-family: 'Satoshi', system-ui, sans-serif;
   font-weight: 300;
   letter-spacing: 0.18em;
+  word-spacing: 0.35em;
   text-transform: uppercase;
-  font-size: clamp(1rem, 2.4vw, 1.85rem);
+  font-size: clamp(1rem, 1.4vw, 1.85rem);
   color: #f6faff;
   will-change: transform;
 }
@@ -606,7 +607,14 @@
 .neon-phrase {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.6em;
+  gap: 1rem;
+}
+
+.neon-word {
+  display: inline-block;
+  animation: neon-word-pulse 0.4s ease-in-out infinite;
+  transform-origin: center;
+  margin-right: 0.95rem;
 }
 
 .neon-brand {

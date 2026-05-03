@@ -69,18 +69,17 @@ export function Footer() {
 
       <div className="relative border-b border-white/10 overflow-hidden bg-black py-6 md:py-8">
         <div className="neon-line-track">
-          <span className="neon-line-text" aria-label="Nexora — Crafting Dreams with Celestial Quality">
+          <span className="neon-line-text" aria-label={`${footer.neonText.brand} ${footer.neonText.separator} ${footer.neonText.words.join(' ')}`}>
             {Array.from({ length: 4 }).map((_, copyIdx) => {
-              const words = ["Crafting", "Dreams", "with", "Celestial", "Quality"];
               return (
                 <span key={copyIdx} className="neon-phrase" aria-hidden={copyIdx > 0 ? "true" : undefined}>
-                  <span className="neon-brand">Nexora</span>
-                  <span className="neon-sep">—</span>
-                  {words.map((w, i) => (
+                  <span className="neon-brand">{footer.neonText.brand}</span>
+                  <span className="neon-sep">{footer.neonText.separator}</span>
+                  {footer.neonText.words.map((w, i) => (
                     <span
                       key={i}
                       className="neon-word"
-                      style={{ animationDelay: `${i * 0.25}s` }}
+                      style={{ animationDelay: `${i * 0.45}s` }}
                     >
                       {w}
                     </span>

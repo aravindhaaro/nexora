@@ -58,6 +58,11 @@ export const siteContent = {
   footer: {
     ctaTitle: "Let's connect.",
     rightsLabel: "All rights reserved.",
+    neonText: {
+      brand: "Nexora",
+      separator: "—",
+      words: ["Crafting", "Dreams", "with", "Celestial", "Quality"],
+    },
     socialGroups: [
       {
         category: "For Networking",
