@@ -601,5 +601,51 @@
 .neon-line-text > span {
   display: inline-block;
   padding-right: 4rem;
-  animation: neon-flicker 5s infinite;
+}
+
+.neon-phrase {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6em;
+}
+
+.neon-brand {
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #ffffff;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.95),
+    0 0 16px rgba(210,225,255,0.85),
+    0 0 32px rgba(160,190,255,0.6),
+    0 0 60px rgba(120,160,255,0.4);
+}
+
+.neon-sep {
+  opacity: 0.55;
+  color: #cfd8ee;
+}
+
+@keyframes neon-word-pulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    text-shadow:
+      0 0 4px rgba(255,255,255,0.6),
+      0 0 12px rgba(180,210,255,0.45);
+    color: #e8efff;
+  }
+  50% {
+    transform: translateY(-3px) scale(1.06);
+    text-shadow:
+      0 0 6px rgba(255,255,255,1),
+      0 0 18px rgba(200,220,255,0.95),
+      0 0 38px rgba(150,185,255,0.75),
+      0 0 70px rgba(120,160,255,0.5);
+    color: #ffffff;
+  }
+}
+
+.neon-word {
+  display: inline-block;
+  animation: neon-word-pulse 2.4s ease-in-out infinite;
+  transform-origin: center;
 }
