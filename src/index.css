@@ -341,11 +341,22 @@
 }
 
 @keyframes moon-shadow-cycle {
-  0%   { transform: translateX(-100%); }   /* new moon */
-  25%  { transform: translateX(-50%); }    /* first quarter */
-  50%  { transform: translateX(100%); }    /* full moon (shadow off-screen right) */
-  75%  { transform: translateX(50%); }     /* last quarter */
-  100% { transform: translateX(-100%); }   /* back to new */
+  /* Curved terminator sweeps across the moon — natural lunar phase */
+  0%   { background-position: -110% 50%; }
+  25%  { background-position: -40% 50%; }
+  50%  { background-position: 110% 50%; }
+  75%  { background-position: 40% 50%; }
+  100% { background-position: -110% 50%; }
+}
+
+@keyframes ray-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ray-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.7; }
 }
 
 @keyframes moon-glow-pulse {
