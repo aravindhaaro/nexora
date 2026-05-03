@@ -47,39 +47,22 @@ export function Footer() {
 
   return (
     <footer className="relative bg-black text-white">
-      <div className="relative h-[340px] border-b border-white/10 md:h-[600px]">
+      <div className="relative h-[340px] overflow-hidden border-b border-white/10 md:h-[600px]">
         <div aria-hidden className="pointer-events-none absolute inset-0">
-           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(94,155,255,0.18),transparent_38%),radial-gradient(circle_at_85%_75%,rgba(203,114,255,0.14),transparent_40%),radial-gradient(circle_at_10%_85%,rgba(255,187,94,0.1),transparent_35%)]" />
-              <div className="solar-core" />
-              <div className="orbit-ring orbit-ring-one">
-                <span className="orbit-planet">
-                  <PlanetIcon name="earth" className="planet-photo h-6 w-6 md:h-7 md:w-7" />
-                </span>
-              </div>
-              <div className="orbit-ring orbit-ring-two">
-                <span className="orbit-planet">
-                  <PlanetIcon name="saturn" className="planet-photo h-7 w-7 md:h-9 md:w-9" />
-                </span>
-              </div>
-              <div className="orbit-ring orbit-ring-three">
-                <span className="orbit-planet">
-                  <PlanetIcon name="jupiter" className="planet-photo h-8 w-8 md:h-10 md:w-10" />
-                </span>
-              </div>
-              <div className="orbit-ring orbit-ring-four">
-                <span className="orbit-planet orbit-planet-mercury">
-                  <PlanetIcon name="mercury" className="planet-photo h-5 w-5 md:h-6 md:w-6" />
-                </span>
-                <span className="orbit-planet orbit-planet-venus">
-                  <PlanetIcon name="venus" className="planet-photo h-6 w-6 md:h-7 md:w-7" />
-                </span>
-                <span className="orbit-planet orbit-planet-mars">
-                  <PlanetIcon name="mars" className="planet-photo h-5 w-5 md:h-6 md:w-6" />
-                </span>
-                <span className="orbit-planet orbit-planet-neptune">
-                  <PlanetIcon name="neptune" className="planet-photo h-6 w-6 md:h-8 md:w-8" />
-                </span>
-              </div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(180,200,255,0.18),transparent_45%),radial-gradient(circle_at_15%_20%,rgba(120,140,200,0.12),transparent_40%),radial-gradient(circle_at_85%_80%,rgba(150,170,220,0.1),transparent_45%)]" />
+          <div className="moon-stars" />
+          <div className="moon-primary">
+            <div className="moon-shadow" />
+            <div className="moon-craters" />
+            <div className="moon-glow" />
+          </div>
+          <div className="moon-phase-ring">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <span key={i} className="moon-phase-slot" style={{ ["--i" as string]: i }}>
+                <span className={`moon-phase moon-phase-${i}`} />
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
