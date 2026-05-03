@@ -67,6 +67,17 @@ export function Footer() {
         </div>
       </div>
 
+      <div className="relative border-b border-white/10 overflow-hidden bg-black py-6 md:py-8">
+        <div className="neon-line-track">
+          <span className="neon-line-text" aria-label="Nexora — Crafting Dreams with Celestial Quality">
+            <span>Nexora — Crafting Dreams with Celestial Quality</span>
+            <span aria-hidden="true">Nexora — Crafting Dreams with Celestial Quality</span>
+            <span aria-hidden="true">Nexora — Crafting Dreams with Celestial Quality</span>
+            <span aria-hidden="true">Nexora — Crafting Dreams with Celestial Quality</span>
+          </span>
+        </div>
+      </div>
+
       <div className="container relative z-10 py-8 md:py-10">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-10 mb-8">
           {footer.socialGroups.map((group) => (
