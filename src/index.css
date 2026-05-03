@@ -341,11 +341,22 @@
 }
 
 @keyframes moon-shadow-cycle {
-  0%   { transform: translateX(-100%); }   /* new moon */
-  25%  { transform: translateX(-50%); }    /* first quarter */
-  50%  { transform: translateX(100%); }    /* full moon (shadow off-screen right) */
-  75%  { transform: translateX(50%); }     /* last quarter */
-  100% { transform: translateX(-100%); }   /* back to new */
+  /* Curved terminator sweeps across the moon — natural lunar phase */
+  0%   { background-position: -110% 50%; }
+  25%  { background-position: -40% 50%; }
+  50%  { background-position: 110% 50%; }
+  75%  { background-position: 40% 50%; }
+  100% { background-position: -110% 50%; }
+}
+
+@keyframes ray-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ray-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.7; }
 }
 
 @keyframes moon-glow-pulse {
@@ -428,11 +439,38 @@
 
 .moon-shadow {
   position: absolute;
-  inset: 0;
+  inset: -2%;
   border-radius: 9999px;
-  background: linear-gradient(90deg, rgba(8,10,20,0.96) 0%, rgba(8,10,20,0.96) 50%, transparent 50%, transparent 100%);
+  /* Large soft circular shadow that drifts across; creates a curved terminator like a real moon phase */
+  background:
+    radial-gradient(circle at 50% 50%, rgba(8,10,20,0.97) 0%, rgba(8,10,20,0.95) 49%, rgba(8,10,20,0) 51%);
+  background-size: 200% 200%;
+  background-repeat: no-repeat;
   animation: moon-shadow-cycle 28s linear infinite;
   z-index: 2;
+  mix-blend-mode: multiply;
+}
+
+.moon-rays {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(280px, 38vw, 460px);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(230, 235, 255, 0.18) 0deg 2deg,
+      transparent 2deg 18deg,
+      rgba(230, 235, 255, 0.10) 18deg 19deg,
+      transparent 19deg 30deg
+    );
+  -webkit-mask: radial-gradient(circle, transparent 22%, black 30%, black 55%, transparent 80%);
+          mask: radial-gradient(circle, transparent 22%, black 30%, black 55%, transparent 80%);
+  filter: blur(1px);
+  animation: ray-rotate 90s linear infinite, ray-pulse 6s ease-in-out infinite;
+  z-index: 0;
 }
 
 .moon-phase-ring {

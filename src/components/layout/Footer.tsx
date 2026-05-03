@@ -51,9 +51,10 @@ export function Footer() {
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(180,200,255,0.18),transparent_45%),radial-gradient(circle_at_15%_20%,rgba(120,140,200,0.12),transparent_40%),radial-gradient(circle_at_85%_80%,rgba(150,170,220,0.1),transparent_45%)]" />
           <div className="moon-stars" />
+          <div className="moon-rays" />
           <div className="moon-primary">
-            <div className="moon-shadow" />
             <div className="moon-craters" />
+            <div className="moon-shadow" />
             <div className="moon-glow" />
           </div>
           <div className="moon-phase-ring">
