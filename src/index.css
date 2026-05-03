@@ -9,6 +9,10 @@
 */
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   :root {
     /* Core palette - Light mode */
     --background: 0 0% 100%;
@@ -116,11 +120,24 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: clamp(14px, 1.15vw, 18px);
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Satoshi', system-ui, sans-serif;
+    min-height: 100svh;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  svg,
+  video,
+  canvas,
+  picture {
+    max-inline-size: 100%;
+    block-size: auto;
+    display: block;
   }
 
   /* Typography utilities */

@@ -13,12 +13,20 @@ export default {
         lg: "4rem",
         xl: "5rem",
         "2xl": "5rem",
+        "3xl": "6rem",
+        "4xl": "8rem",
       },
       screens: {
         "2xl": "1920px",
+        "3xl": "2560px",
+        "4xl": "3840px",
       },
     },
     extend: {
+      screens: {
+        "3xl": "2560px",
+        "4xl": "3840px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
