@@ -139,6 +139,12 @@ export function Navbar({ variant = "light" }: NavbarProps) {
               }
             />
             <div>{viewToggle}</div>
+            <Link
+              to="/product-designs"
+              className="neon-yellow-btn text-[11px] uppercase tracking-[0.18em] font-semibold px-3 py-1.5 rounded-full"
+            >
+              Product Designs
+            </Link>
           </div>
         </div>
       </div>
