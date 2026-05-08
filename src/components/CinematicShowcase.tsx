@@ -159,20 +159,24 @@ function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body,
       ref={ref}
       className="relative h-screen w-full overflow-hidden bg-black"
     >
-      {/* Image layer */}
+      {/* Image layer (single image, or crossfade carousel when images[] supplied) */}
       <div className="absolute inset-0">
-        <img
-          src={image}
-          alt={caption}
-          className="absolute inset-0 h-full w-full object-cover will-change-transform"
-          style={{
-            transform,
-            transformOrigin: `${originX}% ${originY}%`,
-            filter,
-            ...extraStyle,
-          }}
-          loading="lazy"
-        />
+        {(carouselImages ?? [image]).map((src, i) => (
+          <img
+            key={src + i}
+            src={src}
+            alt={caption}
+            className="absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-[1400ms] ease-in-out"
+            style={{
+              transform,
+              transformOrigin: `${originX}% ${originY}%`,
+              filter,
+              opacity: carouselImages ? (i === activeIdx ? 1 : 0) : 1,
+              ...extraStyle,
+            }}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
       </div>
 
       {/* Cinematic vignette */}
