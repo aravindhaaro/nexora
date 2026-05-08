@@ -285,12 +285,14 @@ interface CinematicShowcaseProps {
 
 export function CinematicShowcase({ logoSrc }: CinematicShowcaseProps) {
   const scenes: SceneProps[] = siteContent.cinematic.scenes;
+  // Banner (first scene) cycles through all available images as a temporary carousel.
+  const bannerImages = scenes.map((s) => s.image);
 
   return (
     <div className="relative bg-black">
       <LogoSlot src={logoSrc} />
       {scenes.map((s, i) => (
-        <Scene key={i} {...s} />
+        <Scene key={i} {...s} {...(i === 0 ? { images: bannerImages, carouselInterval: 4000 } : {})} />
       ))}
     </div>
   );
