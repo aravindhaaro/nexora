@@ -52,9 +52,22 @@ interface SceneProps {
   kicker?: string;
   /** Optional supporting paragraph under caption */
   body?: string;
+  /** When provided, render an auto-rotating crossfade carousel instead of a single image */
+  images?: string[];
+  /** Carousel interval in ms (default 4000) */
+  carouselInterval?: number;
 }
 
-function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body }: SceneProps) {
+function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body, images, carouselInterval = 4000 }: SceneProps) {
+  const carouselImages = images && images.length > 1 ? images : null;
+  const [activeIdx, setActiveIdx] = useState(0);
+  useEffect(() => {
+    if (!carouselImages) return;
+    const id = setInterval(() => {
+      setActiveIdx((i) => (i + 1) % carouselImages.length);
+    }, carouselInterval);
+    return () => clearInterval(id);
+  }, [carouselImages, carouselInterval]);
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
