@@ -52,9 +52,22 @@ interface SceneProps {
   kicker?: string;
   /** Optional supporting paragraph under caption */
   body?: string;
+  /** When provided, render an auto-rotating crossfade carousel instead of a single image */
+  images?: string[];
+  /** Carousel interval in ms (default 4000) */
+  carouselInterval?: number;
 }
 
-function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body }: SceneProps) {
+function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body, images, carouselInterval = 4000 }: SceneProps) {
+  const carouselImages = images && images.length > 1 ? images : null;
+  const [activeIdx, setActiveIdx] = useState(0);
+  useEffect(() => {
+    if (!carouselImages) return;
+    const id = setInterval(() => {
+      setActiveIdx((i) => (i + 1) % carouselImages.length);
+    }, carouselInterval);
+    return () => clearInterval(id);
+  }, [carouselImages, carouselInterval]);
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
@@ -146,20 +159,24 @@ function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body 
       ref={ref}
       className="relative h-screen w-full overflow-hidden bg-black"
     >
-      {/* Image layer */}
+      {/* Image layer (single image, or crossfade carousel when images[] supplied) */}
       <div className="absolute inset-0">
-        <img
-          src={image}
-          alt={caption}
-          className="absolute inset-0 h-full w-full object-cover will-change-transform"
-          style={{
-            transform,
-            transformOrigin: `${originX}% ${originY}%`,
-            filter,
-            ...extraStyle,
-          }}
-          loading="lazy"
-        />
+        {(carouselImages ?? [image]).map((src, i) => (
+          <img
+            key={src + i}
+            src={src}
+            alt={caption}
+            className="absolute inset-0 h-full w-full object-cover will-change-transform transition-opacity duration-[1400ms] ease-in-out"
+            style={{
+              transform,
+              transformOrigin: `${originX}% ${originY}%`,
+              filter,
+              opacity: carouselImages ? (i === activeIdx ? 1 : 0) : 1,
+              ...extraStyle,
+            }}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
       </div>
 
       {/* Cinematic vignette */}
@@ -268,12 +285,14 @@ interface CinematicShowcaseProps {
 
 export function CinematicShowcase({ logoSrc }: CinematicShowcaseProps) {
   const scenes: SceneProps[] = siteContent.cinematic.scenes;
+  // Banner (first scene) cycles through all available images as a temporary carousel.
+  const bannerImages = scenes.map((s) => s.image);
 
   return (
     <div className="relative bg-black">
       <LogoSlot src={logoSrc} />
       {scenes.map((s, i) => (
-        <Scene key={i} {...s} />
+        <Scene key={i} {...s} {...(i === 0 ? { images: bannerImages, carouselInterval: 4000 } : {})} />
       ))}
     </div>
   );
