@@ -675,41 +675,41 @@
   transform-origin: center;
 }
 
-/* Fluorescent yellow CTA button — "Product Designs" in navbar */
+/* Beige CTA button — "Product Designs" in navbar */
 .neon-yellow-btn {
-  color: #f7ff00;
+  color: #dad1c2;
   background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(247, 255, 0, 0.55);
+  border: 1px solid rgba(218, 209, 194, 0.55);
   text-shadow:
-    0 0 4px rgba(247, 255, 0, 0.95),
-    0 0 10px rgba(247, 255, 0, 0.7),
-    0 0 18px rgba(220, 255, 0, 0.45);
+    0 0 4px rgba(218, 209, 194, 0.95),
+    0 0 10px rgba(200, 190, 180, 0.7),
+    0 0 18px rgba(180, 170, 160, 0.45);
   box-shadow:
-    0 0 0 1px rgba(247, 255, 0, 0.2),
-    0 0 14px rgba(247, 255, 0, 0.35),
-    inset 0 0 8px rgba(247, 255, 0, 0.18);
+    0 0 0 1px rgba(218, 209, 194, 0.2),
+    0 0 14px rgba(218, 209, 194, 0.35),
+    inset 0 0 8px rgba(218, 209, 194, 0.18);
   transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
-  animation: neon-yellow-pulse 2.6s ease-in-out infinite;
+  animation: neon-beige-pulse 2.6s ease-in-out infinite;
 }
 .neon-yellow-btn:hover {
   transform: translateY(-1px) scale(1.04);
   color: #ffffff;
   box-shadow:
-    0 0 0 1px rgba(247, 255, 0, 0.55),
-    0 0 22px rgba(247, 255, 0, 0.7),
-    inset 0 0 14px rgba(247, 255, 0, 0.35);
+    0 0 0 1px rgba(200, 190, 180, 0.7),
+    0 0 22px rgba(218, 209, 194, 0.35),
+    inset 0 0 14px rgba(218, 209, 194, 0.35);
 }
-@keyframes neon-yellow-pulse {
+@keyframes neon-beige-pulse {
   0%, 100% {
     box-shadow:
-      0 0 0 1px rgba(247, 255, 0, 0.2),
-      0 0 12px rgba(247, 255, 0, 0.3),
-      inset 0 0 6px rgba(247, 255, 0, 0.15);
+      0 0 0 1px rgba(218, 209, 194, 0.2),
+      0 0 12px rgba(218, 209, 194, 0.3),
+      inset 0 0 6px rgba(218, 209, 194, 0.15);
   }
   50% {
     box-shadow:
-      0 0 0 1px rgba(247, 255, 0, 0.45),
-      0 0 22px rgba(247, 255, 0, 0.6),
-      inset 0 0 12px rgba(247, 255, 0, 0.3);
+      0 0 0 1px rgba(218, 209, 194, 0.45),
+      0 0 22px rgba(218, 209, 194, 0.6),
+      inset 0 0 12px rgba(218, 209, 194, 0.3);
   }
 }

@@ -71,13 +71,34 @@ const About = () => {
         <section className="py-20 md:py-24 bg-black border-t border-gray-200">
           <div className="container">
             <h3 className="text-xs uppercase tracking-[0.15em] font-medium text-gray-500 mb-10">{about.clientsTitle}</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {about.clients.map((client) => (
-                <div 
-                  key={client} 
-                  className="text-base font-medium text-gray-600 hover:text-yellow-500 transition-colors cursor-pointer shadow-lg shadow-yellow-500/10 rounded-lg p-2"
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {about.clients.map((client, index) => (
+                <div
+                  key={client.name}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
+                  style={{ animationDelay: `${index * 60}ms` }}
                 >
-                  {client}
+                  <div className="relative h-32 w-full overflow-hidden rounded-3xl bg-slate-950/90">
+                    {client.logo ? (
+                      <img
+                        src={client.logo}
+                        alt={client.name}
+                        className="h-full w-full object-contain object-center"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-center px-3">
+                        <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
+                          {client.name}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 text-center">
+                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400 group-hover:text-white transition-colors">
+                      {client.name}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

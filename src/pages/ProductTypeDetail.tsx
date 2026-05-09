@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { getProductType, type ProductDesign } from "@/data/productDesigns";
+import { getProductType, type ProductDesign, productTypes } from "@/data/productDesigns";
 
 function DesignCard({
   design,
@@ -10,12 +10,26 @@ function DesignCard({
 }: {
   design: ProductDesign;
   index: number;
-  variant: "large" | "small";
+  variant: "large" | "small" | "equal";
 }) {
-  const isLarge = variant === "large";
+  const isEqual = variant === "equal";
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [visible, setVisible] = useState(false);
+
+  // Generate global product code
+  const getGlobalProductCode = () => {
+    let globalIndex = 0;
+    for (const type of productTypes) {
+      for (const d of type.designs) {
+        if (d.id === design.id) {
+          return `NXRA_${String(globalIndex + 1).padStart(2, '0')}`;
+        }
+        globalIndex++;
+      }
+    }
+    return 'NXRA_01';
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -25,14 +39,16 @@ function DesignCard({
       const vh = window.innerHeight;
       if (rect.top < vh && rect.bottom > 0) {
         setVisible(true);
-        const center = rect.top + rect.height / 2;
-        setOffset(((center - vh / 2) / vh) * 30);
+        if (!isEqual) {
+          const center = rect.top + rect.height / 2;
+          setOffset(((center - vh / 2) / vh) * 30);
+        }
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isEqual]);
 
   return (
     <div
@@ -43,19 +59,21 @@ function DesignCard({
     >
       <div
         className={`relative mb-4 overflow-hidden rounded-2xl shadow-md ${
-          isLarge ? "aspect-[4/3]" : "aspect-square"
+          isEqual ? "aspect-square" : variant === "large" ? "aspect-[4/3]" : "aspect-square"
         }`}
         style={{ backgroundColor: design.color }}
       >
         <div
-          className="absolute inset-[-20px] transition-transform duration-100 ease-out"
-          style={{ transform: `translateY(${offset}px)` }}
+          className={`absolute inset-0 transition-transform duration-500 group-hover:scale-105 ${
+            isEqual ? "" : "inset-[-20px]"
+          }`}
+          style={isEqual ? {} : { transform: `translateY(${offset}px)` }}
         >
           <img
             src={design.image}
             alt={design.title}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
@@ -65,6 +83,9 @@ function DesignCard({
           {design.title}
         </h3>
         <p className="text-sm text-neutral-600 line-clamp-2">{design.subtitle}</p>
+        <p className="text-xs uppercase tracking-[0.18em] text-neutral-500 font-medium">
+          Product Code: {getGlobalProductCode()}
+        </p>
         <div className="flex flex-wrap gap-3 pt-2">
           {design.tags.slice(0, 2).map((t) => (
             <span
@@ -101,12 +122,6 @@ const ProductTypeDetail = () => {
     );
   }
 
-  const getVariant = (i: number): "large" | "small" => {
-    const row = Math.floor(i / 2);
-    const col = i % 2;
-    return (row % 2 === 0 ? col === 0 : col === 1) ? "large" : "small";
-  };
-
   return (
     <Layout variant="light">
       <div
@@ -140,12 +155,12 @@ const ProductTypeDetail = () => {
           </div>
         </section>
 
-        {/* Designs grid — alternating large/small to mirror Project grid */}
+        {/* Designs grid — 2 columns with equal size */}
         <section className="px-4 sm:px-6 lg:px-20 pb-24">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {type.designs.map((d, i) => (
-                <DesignCard key={d.id} design={d} index={i} variant={getVariant(i)} />
+                <DesignCard key={d.id} design={d} index={i} variant="equal" />
               ))}
             </div>
           </div>
