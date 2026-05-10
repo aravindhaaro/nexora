@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ContactDialog } from "@/components/ContactDialog";
 import { siteContent } from "@/data/siteContent";
 import { SocialIcon } from "@/components/SocialIcon";
+import { useTheme } from "@/context/ThemeContext";
 
 interface NavbarProps {
   variant?: "light" | "dark";
@@ -87,21 +88,8 @@ export function Navbar({ variant = "light" }: NavbarProps) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4 sm:px-6 md:py-5 lg:px-20 lg:py-8">
       <div className="flex items-center justify-between">
-        <Link 
-          to="/" 
-          className={cn(
-            "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
-            isDark ? "text-white" : "text-black"
-          )}
-        >
-          {brand.ownerName}
-          <span className={cn(
-            "hidden lg:inline lg:ml-2",
-            isDark ? "text-gray-500" : "text-gray-400"
-          )}>
-            {brand.location}
-          </span>
-        </Link>
+        <LogoLink isDark={isDark} />
+
 
         <div className="flex items-center gap-3 md:gap-4">
           <div className="hidden lg:flex items-center gap-4">
