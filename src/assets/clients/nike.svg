@@ -1,20 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f97316"/>
-      <stop offset="100%" stop-color="#ec4899"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f97316" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="200" height="200" rx="40" fill="url(#g)"/>
-  <circle cx="100" cy="100" r="90" fill="url(#glow)"/>
-  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700"
-    font-size="110" fill="#ffffff" opacity="0.95">N</text>
-  <text x="50%" y="86%" text-anchor="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="500"
-    font-size="16" letter-spacing="4" fill="#ffffff" opacity="0.85">NIKE</text>
+  <g transform="translate(20, 60)">
+    <path d="M160 40c0-11-9-20-20-20s-20 9-20 20c0 8.8 5.7 16.3 13.7 18.7L120 80l6.3-21.3C134.3 56.3 140 48.8 140 40c0-11-9-20-20-20s-20 9-20 20c0 8.8 5.7 16.3 13.7 18.7L80 80l6.3-21.3C94.3 56.3 100 48.8 100 40c0-11-9-20-20-20s-20 9-20 20c0 8.8 5.7 16.3 13.7 18.7L40 80l6.3-21.3C54.3 56.3 60 48.8 60 40c0-11-9-20-20-20s-20 9-20 20c0 8.8 5.7 16.3 13.7 18.7L0 80l6.3-21.3C14.3 56.3 20 48.8 20 40c0-11-9-20-20-20v40h160V40z" fill="#000000"/>
+  </g>
 </svg>

@@ -1,20 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ef4444"/>
-      <stop offset="100%" stop-color="#f59e0b"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="200" height="200" rx="40" fill="url(#g)"/>
-  <circle cx="100" cy="100" r="90" fill="url(#glow)"/>
-  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700"
-    font-size="110" fill="#ffffff" opacity="0.95">G</text>
-  <text x="50%" y="86%" text-anchor="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="500"
-    font-size="16" letter-spacing="4" fill="#ffffff" opacity="0.85">GOOGLE</text>
+  <g transform="translate(20, 20)">
+    <path d="M160 80c0-44.2-35.8-80-80-80S0 35.8 0 80c0 39.5 29.1 72.2 67.7 78.5l-8.7 29.3h27.3l8.7-29.3c11.4-2.1 22.2-6.8 31.7-13.7L120.7 160H148l-13.3-44.7c11.4-9.5 19.3-23.1 19.3-38.3z" fill="#4285F4"/>
+    <path d="M67.7 158.5c-38.6-6.3-67.7-39-67.7-78.5 0-44.2 35.8-80 80-80v40c-22.1 0-40 17.9-40 40s17.9 40 40 40c11.1 0 21.2-4.5 28.6-11.8l-11.8-11.8H80V80h80c0 15.2-7.9 28.8-19.3 38.3L148 160h-27.3l8.7-29.3c-9.5 6.9-20.3 11.6-31.7 13.7z" fill="#34A853"/>
+    <path d="M160 80c0 15.2-7.9 28.8-19.3 38.3L148 160H120.7l13.3-44.7c-9.5 6.9-20.3 11.6-31.7 13.7L120.7 160H148l-13.3-44.7c11.4-9.5 19.3-23.1 19.3-38.3z" fill="#FBBC05"/>
+    <path d="M67.7 1.5C29.1 7.8 0 40.5 0 80c0 39.5 29.1 72.2 67.7 78.5l8.7-29.3c-11.4-2.1-22.2-6.8-31.7-13.7L27.3 40h27.3l-8.7 29.3c9.5-6.9 20.3-11.6 31.7-13.7L67.7 1.5z" fill="#EA4335"/>
+  </g>
 </svg>

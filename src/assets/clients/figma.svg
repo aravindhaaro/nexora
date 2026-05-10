@@ -1,20 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#f97316"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="200" height="200" rx="40" fill="url(#g)"/>
-  <circle cx="100" cy="100" r="90" fill="url(#glow)"/>
-  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700"
-    font-size="110" fill="#ffffff" opacity="0.95">F</text>
-  <text x="50%" y="86%" text-anchor="middle"
-    font-family="'Helvetica Neue', Arial, sans-serif" font-weight="500"
-    font-size="16" letter-spacing="4" fill="#ffffff" opacity="0.85">FIGMA</text>
+  <g transform="translate(50, 50)">
+    <!-- Figma logo shapes -->
+    <ellipse cx="25" cy="25" rx="25" ry="25" fill="#F24E1E"/>
+    <ellipse cx="25" cy="75" rx="25" ry="25" fill="#FF7262"/>
+    <rect x="0" y="50" width="50" height="50" rx="25" fill="#A259FF"/>
+    <ellipse cx="75" cy="25" rx="25" ry="25" fill="#1ABCFE"/>
+    <ellipse cx="75" cy="75" rx="25" ry="25" fill="#0AC775"/>
+  </g>
 </svg>
