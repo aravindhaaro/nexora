@@ -61,13 +61,19 @@ interface SceneProps {
 function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body, images, carouselInterval = 4000 }: SceneProps) {
   const carouselImages = images && images.length > 1 ? images : null;
   const [activeIdx, setActiveIdx] = useState(0);
+  const [tick, setTick] = useState(0); // bumped on click to reset auto-rotate timer
   useEffect(() => {
     if (!carouselImages) return;
     const id = setInterval(() => {
       setActiveIdx((i) => (i + 1) % carouselImages.length);
     }, carouselInterval);
     return () => clearInterval(id);
-  }, [carouselImages, carouselInterval]);
+  }, [carouselImages, carouselInterval, tick]);
+  const advance = () => {
+    if (!carouselImages) return;
+    setActiveIdx((i) => (i + 1) % carouselImages.length);
+    setTick((n) => n + 1);
+  };
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
