@@ -742,3 +742,16 @@
   animation-duration: 2.2s;
   filter: blur(8px) saturate(1.4);
 }
+
+/* Theme flash burst — triggered on double-click logo theme toggle */
+.theme-flash-burst {
+  background:
+    radial-gradient(circle at 50% 50%, hsla(48, 100%, 70%, 0.55) 0%, hsla(280, 90%, 60%, 0.25) 40%, transparent 70%);
+  animation: theme-flash 0.9s ease-out;
+  mix-blend-mode: screen;
+}
+@keyframes theme-flash {
+  0%   { opacity: 0; transform: scale(0.6); filter: blur(40px); }
+  30%  { opacity: 1; transform: scale(1.05); filter: blur(0px); }
+  100% { opacity: 0; transform: scale(1.2); filter: blur(20px); }
+}

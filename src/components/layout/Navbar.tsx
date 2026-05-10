@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ContactDialog } from "@/components/ContactDialog";
 import { siteContent } from "@/data/siteContent";
 import { SocialIcon } from "@/components/SocialIcon";
+import { useTheme } from "@/context/ThemeContext";
 
 interface NavbarProps {
   variant?: "light" | "dark";
@@ -29,6 +30,44 @@ function ListIcon({ className }: { className?: string }) {
       <rect x="1" y="7" width="14" height="2" rx="1" />
       <rect x="1" y="12" width="14" height="2" rx="1" />
     </svg>
+  );
+}
+
+function LogoLink({ isDark }: { isDark: boolean }) {
+  const { brand } = siteContent;
+  const { toggle } = useTheme();
+  const clicks = useRef(0);
+  const timer = useRef<number | null>(null);
+
+  const handleClick = (e: React.MouseEvent) => {
+    clicks.current += 1;
+    if (clicks.current === 1) {
+      timer.current = window.setTimeout(() => {
+        clicks.current = 0;
+      }, 350);
+    } else if (clicks.current >= 2) {
+      e.preventDefault();
+      if (timer.current) window.clearTimeout(timer.current);
+      clicks.current = 0;
+      toggle();
+    }
+  };
+
+  return (
+    <Link
+      to="/"
+      onClick={handleClick}
+      title="Double-click to toggle light / dark mode"
+      className={cn(
+        "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60 select-none",
+        isDark ? "text-white" : "text-black"
+      )}
+    >
+      {brand.ownerName}
+      <span className={cn("hidden lg:inline lg:ml-2", isDark ? "text-gray-500" : "text-gray-400")}>
+        {brand.location}
+      </span>
+    </Link>
   );
 }
 
@@ -87,21 +126,8 @@ export function Navbar({ variant = "light" }: NavbarProps) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4 sm:px-6 md:py-5 lg:px-20 lg:py-8">
       <div className="flex items-center justify-between">
-        <Link 
-          to="/" 
-          className={cn(
-            "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60",
-            isDark ? "text-white" : "text-black"
-          )}
-        >
-          {brand.ownerName}
-          <span className={cn(
-            "hidden lg:inline lg:ml-2",
-            isDark ? "text-gray-500" : "text-gray-400"
-          )}>
-            {brand.location}
-          </span>
-        </Link>
+        <LogoLink isDark={isDark} />
+
 
         <div className="flex items-center gap-3 md:gap-4">
           <div className="hidden lg:flex items-center gap-4">
