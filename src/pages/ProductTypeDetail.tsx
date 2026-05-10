@@ -134,14 +134,13 @@ const ProductTypeDetail = () => {
         {/* Hero */}
         <section className="pt-28 lg:pt-36 pb-10 px-4 sm:px-6 lg:px-20">
           <div className="max-w-7xl mx-auto">
-            <button
-              type="button"
-              onClick={() => navigate("/product-designs")}
-              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-900 transition-colors mb-6 cursor-pointer relative z-10"
+            <Link
+              to="/product-designs"
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-900 transition-colors mb-6 cursor-pointer relative z-20"
             >
               <span className="transition-transform group-hover:-translate-x-1">←</span>
               Product Designs
-            </button>
+            </Link>
             <p
               className="text-[11px] uppercase tracking-[0.4em] mb-4"
               style={{ color: type.accent }}
