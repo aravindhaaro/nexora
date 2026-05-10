@@ -60,7 +60,7 @@ function LogoLink({ isDark }: { isDark: boolean }) {
       title="Double-click to toggle light / dark mode"
       className={cn(
         "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60 select-none",
-        isDark ? "text-white" : "text-black"
+        isDark ? "text-white text-shadow-dark" : "text-black text-shadow-light"
       )}
     >
       {brand.ownerName}
