@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { getProductType, type ProductDesign, productTypes } from "@/data/productDesigns";
@@ -103,6 +103,7 @@ function DesignCard({
 
 const ProductTypeDetail = () => {
   const { typeId } = useParams<{ typeId: string }>();
+  const navigate = useNavigate();
   const type = typeId ? getProductType(typeId) : undefined;
 
   if (!type) {
@@ -133,20 +134,24 @@ const ProductTypeDetail = () => {
         {/* Hero */}
         <section className="pt-28 lg:pt-36 pb-10 px-4 sm:px-6 lg:px-20">
           <div className="max-w-7xl mx-auto">
-            <Link
-              to="/product-designs"
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-900 transition-colors mb-6"
+            <button
+              type="button"
+              onClick={() => navigate("/product-designs")}
+              className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-600 hover:text-neutral-900 transition-colors mb-6 cursor-pointer relative z-10"
             >
               <span className="transition-transform group-hover:-translate-x-1">←</span>
               Product Designs
-            </Link>
+            </button>
             <p
               className="text-[11px] uppercase tracking-[0.4em] mb-4"
               style={{ color: type.accent }}
             >
               {type.tagline}
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-neutral-900 leading-[1.05]">
+            <h1
+              onClick={() => navigate(`/product-designs/${type.id}`)}
+              className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-neutral-900 leading-[1.05] cursor-pointer hover:opacity-80 transition-opacity"
+            >
               {type.name}
             </h1>
             <p className="mt-6 max-w-2xl text-base md:text-lg text-neutral-700">
