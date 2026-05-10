@@ -61,13 +61,19 @@ interface SceneProps {
 function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body, images, carouselInterval = 4000 }: SceneProps) {
   const carouselImages = images && images.length > 1 ? images : null;
   const [activeIdx, setActiveIdx] = useState(0);
+  const [tick, setTick] = useState(0); // bumped on click to reset auto-rotate timer
   useEffect(() => {
     if (!carouselImages) return;
     const id = setInterval(() => {
       setActiveIdx((i) => (i + 1) % carouselImages.length);
     }, carouselInterval);
     return () => clearInterval(id);
-  }, [carouselImages, carouselInterval]);
+  }, [carouselImages, carouselInterval, tick]);
+  const advance = () => {
+    if (!carouselImages) return;
+    setActiveIdx((i) => (i + 1) % carouselImages.length);
+    setTick((n) => n + 1);
+  };
   const ref = useRef<HTMLElement>(null);
   const progress = useScrollProgress(ref);
   // ease the progress for nicer motion
@@ -160,7 +166,12 @@ function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body,
       className="relative h-screen w-full overflow-hidden bg-black"
     >
       {/* Image layer (single image, or crossfade carousel when images[] supplied) */}
-      <div className="absolute inset-0">
+      <div
+        className={`absolute inset-0 ${carouselImages ? "cursor-pointer" : ""}`}
+        onClick={carouselImages ? advance : undefined}
+        role={carouselImages ? "button" : undefined}
+        aria-label={carouselImages ? "Next image" : undefined}
+      >
         {(carouselImages ?? [image]).map((src, i) => (
           <img
             key={src + i}
@@ -178,6 +189,26 @@ function Scene({ image, caption, cameraLabel, effect, overlayWord, kicker, body,
           />
         ))}
       </div>
+
+      {/* Carousel indicator dots */}
+      {carouselImages && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {carouselImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveIdx(i);
+                setTick((n) => n + 1);
+              }}
+              aria-label={`Go to image ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeIdx ? "w-8 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Cinematic vignette */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.75)_100%)]" />

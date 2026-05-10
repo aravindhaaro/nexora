@@ -68,36 +68,47 @@ const About = () => {
         </section>
 
         {/* Clients Section */}
-        <section className="py-20 md:py-24 bg-black border-t border-gray-200">
-          <div className="container">
-            <h3 className="text-xs uppercase tracking-[0.15em] font-medium text-gray-500 mb-10">{about.clientsTitle}</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <section className="py-20 md:py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-black border-t border-white/10 relative overflow-hidden">
+          {/* Animated color blobs */}
+          <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl animate-pulse" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl animate-pulse [animation-delay:1.2s]" />
+          <div className="container relative">
+            <h3 className="text-xs uppercase tracking-[0.15em] font-medium text-white/60 mb-10">{about.clientsTitle}</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
               {about.clients.map((client, index) => (
                 <div
                   key={client.name}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
-                  style={{ animationDelay: `${index * 60}ms` }}
+                  className="client-tile group relative overflow-hidden rounded-3xl p-[1.5px] animate-fade-in"
+                  style={{ animationDelay: `${index * 80}ms` }}
                 >
-                  <div className="relative h-32 w-full overflow-hidden rounded-3xl bg-slate-950/90">
-                    {client.logo ? (
-                      <img
-                        src={client.logo}
-                        alt={client.name}
-                        className="h-full w-full object-contain object-center"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-center px-3">
-                        <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
-                          {client.name}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="mt-4 text-center">
-                    <p className="text-sm uppercase tracking-[0.24em] text-slate-400 group-hover:text-white transition-colors">
-                      {client.name}
-                    </p>
+                  {/* Rotating conic gradient border */}
+                  <div className="client-tile-border absolute inset-0 rounded-3xl opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative rounded-3xl bg-slate-950/85 backdrop-blur-xl p-4 transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.03]">
+                    {/* Sheen sweep */}
+                    <div className="pointer-events-none absolute inset-0 rounded-3xl overflow-hidden">
+                      <div className="client-sheen absolute -inset-y-2 -left-1/2 w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                    </div>
+                    <div className="relative h-32 w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950">
+                      {client.logo ? (
+                        <img
+                          src={client.logo}
+                          alt={client.name}
+                          className="h-full w-full object-contain object-center p-3 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-3 drop-shadow-[0_0_18px_rgba(255,255,255,0.15)] group-hover:drop-shadow-[0_0_28px_rgba(168,85,247,0.55)]"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                          <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white">
+                            {client.name}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="mt-4 text-center">
+                      <p className="text-sm uppercase tracking-[0.24em] text-white/60 group-hover:text-white transition-colors">
+                        {client.name}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}
