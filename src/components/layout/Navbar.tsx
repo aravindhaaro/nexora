@@ -33,6 +33,44 @@ function ListIcon({ className }: { className?: string }) {
   );
 }
 
+function LogoLink({ isDark }: { isDark: boolean }) {
+  const { brand } = siteContent;
+  const { toggle } = useTheme();
+  const clicks = useRef(0);
+  const timer = useRef<number | null>(null);
+
+  const handleClick = (e: React.MouseEvent) => {
+    clicks.current += 1;
+    if (clicks.current === 1) {
+      timer.current = window.setTimeout(() => {
+        clicks.current = 0;
+      }, 350);
+    } else if (clicks.current >= 2) {
+      e.preventDefault();
+      if (timer.current) window.clearTimeout(timer.current);
+      clicks.current = 0;
+      toggle();
+    }
+  };
+
+  return (
+    <Link
+      to="/"
+      onClick={handleClick}
+      title="Double-click to toggle light / dark mode"
+      className={cn(
+        "text-xs uppercase tracking-[0.12em] font-medium transition-opacity hover:opacity-60 select-none",
+        isDark ? "text-white" : "text-black"
+      )}
+    >
+      {brand.ownerName}
+      <span className={cn("hidden lg:inline lg:ml-2", isDark ? "text-gray-500" : "text-gray-400")}>
+        {brand.location}
+      </span>
+    </Link>
+  );
+}
+
 export function Navbar({ variant = "light" }: NavbarProps) {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
